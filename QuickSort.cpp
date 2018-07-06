@@ -6,22 +6,15 @@
 #include <vector>
 using namespace std;
 
-int partition(vector<int> &a, int low, int high) {
-    int pivot = a[high];
-    int temp;
-    int i = low-1;
-    for(int j=low; j<high; j++) {
-        if(a[j]<=pivot) {
-            i++;
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-    temp = a[i+1];
-    a[i+1] = a[high];
-    a[high] = temp;
-    return i+1;
+int partion(vector<int>& a, int start, int end) {
+	int pivot = a[start];
+	while(start < end) {
+		while(start<end && a[end]>=pivot) --end;
+		swap(a[start],a[end]);
+		while(start<end && a[start]<=pivot) ++start;
+		swap(a[start],a[end]);
+	}
+	return start;
 }
 /*
  * 快速排序 时间复杂度O(nlogn), 辅助空间O(1), 不稳定
